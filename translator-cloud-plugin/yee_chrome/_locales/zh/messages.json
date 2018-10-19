@@ -1,0 +1,15 @@
+{
+	"msg1":{
+		 "message": "测试 国际化 $AA$ 和 $BB$",
+    	 "description": "msg1",
+    	 "placeholders": {
+		    "AA": {
+		      "content": "$1",
+		      "example": "AA"
+		    },
+		    "BB":{
+		    	"content":"$2"
+		    }
+  		}
+	}
+}

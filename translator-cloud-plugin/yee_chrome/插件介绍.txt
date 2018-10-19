@@ -1,0 +1,47 @@
+﻿插件文件清单如下:
+
+chrome根目录:
+
+	_locales中存放了国际化内容
+
+	popup.html为插件安装成功后的轮播图教程的静态界面
+
+	content.html为翻译功能条
+
+	config.html为插件配置界面
+
+images 文件夹中存放了插件所需的所有图片
+
+help_doc_images文件夹中存放了插件首次安装后的教程轮播图
+
+lib 文件夹中存放了JQuery.min.js之类的基础支持包
+
+	jquery.min.js为JQuery支持库
+
+	jquery.slideBox.min.js为首次安装插件后轮播教程图轮播库js
+
+
+css 文件夹存放了插件若干地方需要样式支持的css层叠样式表文件
+
+	jquery.slideBox.css 首次安装插件后教程轮播图样式表
+
+
+js 文件夹里存放了业务相关的js脚本文件
+
+	popup.js 为首次安装插件后轮播图控制及图内容控制脚本 - popup级别
+
+	content.js为翻译功能条脚本 - content 级别
+
+	contenthtml_bind_event.js为翻译功能条界面辅助脚本，用于绑定翻译条功能按钮等绑定事件等操作
+
+	bg.js为插件启动,关闭按钮,右键菜单，插件配置入口等相关功能脚本 - background级别
+
+	config.js为插件配置功能脚本 - background级别
+
+	log.js为插件日志收集及定时上报相关功能脚本 - background级别
+
+	setup_init.js 为插件首次安装或者更新时的初始化动作 - background级别
+
+	notification.js 为插件资讯弹框服务层 - background级别
+
+	translate.js 为插件对外翻译服务接口层 - background级别

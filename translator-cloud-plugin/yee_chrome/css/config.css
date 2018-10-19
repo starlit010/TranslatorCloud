@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+html,body{padding:0px; margin:0px; font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;}
+.nav{width:100%; height:70px; background-color:#26c57a;margin:0px auto;}
+.navcont{width:1000px; margin:0px auto; line-height:30px;padding-top:21px}
+.yeku{width:1000px; margin:0px auto;}
+.yeku1{padding-top:30px;font-size:18px;}
+.yeku2{padding-top:40px;font-size:14px;}
+.yeku3{padding-top:15px}
+.yeku22{margin-left: 70px;
+    width: 120px;
+    height: 30px;
+    color: #666666;
+    padding-left: 7px;
+    border-radius: 3px;
+    font-family: 微软雅黑;}
+.yeku32{margin-left:46px;color:#666666;display: inline-block;    margin-bottom: 10px;}
+.yeku42{margin-left:103px;color:#666666;display: inline-block;    margin-bottom: 10px;}
+.yeku33,.yeku43{margin-left:157px;padding-top:13px; color:#666666;}
+.yeku4{padding-top:2px}
+.yeku5{margin-top:50px; background-color:#fff}
+.yeku61{line-height:30px;text-align:center;padding-right:13px}
+.yeku6 img{width:30px;height:30px;margin-left:8px}
+.yeku6{padding-top:20px;text-align:center;}
+.yeku7,.yeku8{text-align:center;padding-top:6px}
+.yeku4txt,.yeku3txt,.yeku2txt{color:#333333}
+
+img{border: none;}
+.choose_pop{margin: 0; padding: 0;line-height: 28px;overflow: hidden;    margin-top: 8px;}
+.check_box, .check_box1{width: 14px;height: 14px;float:left;margin-top: 6px;}
+.choose_pop>img, .choose_pop>span{float: left;padding-right:12px;color:#666666;}

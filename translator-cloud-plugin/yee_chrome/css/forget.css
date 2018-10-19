@@ -1,0 +1,16 @@
+*{margin:0;padding:0;}
+.clearfix{*zoom:1;}.clearfix:after{display:block;overflow:hidden;clear:both;height:0;visibility:hidden;content:".";}
+html,body{height:100%;}
+.top{background:#58b471;height:30%;}
+.top .log{width:410px;margin:0 auto;}
+.top .log img{margin-right:20px;margin-bottom:-12px;}
+.top .log span{color:#fff;font-size:24px;padding-left:20px;border-left:2px solid #fff;}
+.bottom{background:#f2f6f7;height:70%;position:relative}
+.bottom .login{background:#fff;border-radius:10px;box-shadow: 1px 1px 10px 0 #b8b8b9;height:440px;width:424px;position:absolute;top:-90px;left:0;right:0;margin:0 auto;}
+.bottom .login .loginInfo{height:30px;margin-top:20px;color:#f00;}
+.bottom .login .login_title{background:#25c47a;line-height:66px;height:66px;color:#fff;font-size:16px;text-align:center;}
+.bottom .login .pwd{background:url("pwd.jpg") no-repeat 4% center;height:40px;width:290px;margin:0 auto 20px;border:1px solid #ccc;padding-left:40px;}
+.bottom .login .pwd input{height:40px;width:280px;border:0;outline: none}
+.bottom .login .confirmpwd{background:url("pwd.jpg") no-repeat 4% center;height:40px;width:290px;margin:0 auto;border:1px solid #ccc;padding-left:40px;}
+.bottom .login .confirmpwd input{height:40px;width:280px;border:0;outline: none}
+.bottom .login .Btn{height:50px;width:335px;background:#ccc;border-radius:4px;color:#fff;line-height:50px;text-align:center;margin: 110px auto;cursor: pointer;}

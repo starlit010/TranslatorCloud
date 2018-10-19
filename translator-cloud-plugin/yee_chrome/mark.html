@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>书签</title>
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		#main{width:646px;height:516px;border-radius:6px;overflow:hidden;}
+		#tableWrap{height:313px;overflow-y: auto;width:646px;margin-bottom:12px;}
+		#markWrap {width:586px;border-color:#d4d4d4;border-collapse: collapse;border:1px solid #d4d4d4;margin:0 auto;}
+		 h2{text-align:center;height:64px;line-height:64px;color:#fff;background:#25c47a;font-size:18px;margin-bottom:30px;position:relative;}
+		#markWrap tbody{height:285px;width:600px;font-size:14px;}
+		#markWrap th{height:36px;color:#fff;background:#70d6a7;font-weight: 100;font-size:16px;}
+		#markWrap tr{height:36px;}
+		#markWrap td{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+		#markWrap .titleName{max-width:360px;}
+		#markWrap .active{border-bottom:1px solid #25c47a;border-top:1px solid #25c47a;}
+		#markWrap tr:nth-child(odd){background:#eef9f3;}
+		#markWrap tr td:not(:first-child){text-align:center;}
+		#main #mark_name{font-size:14px;color:#666666;margin:0 45px 0;display: none;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width:500px;}
+		#main #langDiv{padding-left:30px;font-size:14px;color:#666;position:absolute;bottom:30px;}
+		#main #langDiv #srclang{margin-right:43px;margin-left:6px;}
+		#main #langDiv .disable{}
+		#main #langDiv #tgtlang{margin-right:60px;margin-left:6px;}
+		#main #langDiv #save_mark{cursor:pointer;display: inline-block;height:28px;width:58px;line-height:28px;text-align:center;font-size:14px;background:#25c47a;color:#fff;}
+		#main #langDiv #remove_mark{cursor:pointer;display: inline-block;height:28px;width:58px;line-height:28px;text-align:center;font-size:14px;background:#fff;color:#25c47a;border:1px solid #25c47a;margin-left:20px;}
+		#langDiv select{height:25px;outline: none;padding: 0 30px 0 30px;
+				    appearance: none;
+				    -moz-appearance: none;
+				    -webkit-appearance: none;
+				    -ms-appearance: none;
+				    background:url(images/select_jt.jpg) no-repeat scroll 70px center;}
+		.closebtn{position:absolute;top:20px;right:24px;cursor:pointer;}
+	</style>
+</head>
+<body>	
+		<div id="main">
+			<h2>书&nbsp;&nbsp;&nbsp;签<img src="images/close.jpg" alt="" class="closebtn"></h2>
+			<div id="tableWrap">
+					<table id="markWrap" border="1" cellspacing='0' cellpadding='0'>
+					<thead>
+						<tr>
+							<th width="366">名称</th>
+							<th width="108">源语言</th>
+							<th width="108">目标语言</th>
+						</tr>
+					</thead>
+					<tbody id="mark_info">
+						
+					</tbody>
+				</table>
+			</div>
+			<p id="mark_name">名称：<span></span></p>
+			<div id="langDiv">
+				<span>源语言:</span>
+					<select id="srclang" disabled="true">
+					
+					</select>
+				<span>目标语言:</span>
+					<select id="tgtlang" disabled="true">
+					
+					</select>
+				<span id="save_mark">保存</span>
+				<span id="remove_mark">删除</span>
+			</div>
+		</div>
+		<script src="lib/jquery.min.js"></script>
+		<script src="js/mark.js"></script>
+</body>
+</html>

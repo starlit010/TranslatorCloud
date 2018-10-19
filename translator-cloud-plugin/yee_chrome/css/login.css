@@ -1,0 +1,24 @@
+*{margin:0;padding:0;}
+.clearfix{*zoom:1;}.clearfix:after{display:block;overflow:hidden;clear:both;height:0;visibility:hidden;content:".";}
+html,body{height:100%;}
+.top{background:#58b471;height:30%;}
+.top .log{width:410px;margin:0 auto;}
+.top .log img{margin-right:20px;margin-bottom:-12px;}
+.top .log span{color:#fff;font-size:24px;padding-left:20px;border-left:2px solid #fff;}
+.bottom{background:#f2f6f7;height:70%;position:relative}
+.bottom .login{background:#fff;border-radius:10px;box-shadow: 1px 1px 10px 0 #b8b8b9;height:480px;width:424px;position:absolute;top:-90px;left:0;right:0;margin:0 auto;}
+.bottom .login .loginInfo{height:30px;margin-top:20px;color:#f00;}
+.bottom .login .login_title{background:#25c47a;line-height:66px;height:66px;color:#fff;font-size:16px;text-align:center;}
+.bottom .login .userName{background:url("user.jpg") no-repeat 4% center;height:40px;width:290px;margin:0 auto 20px;border:1px solid #ccc;padding-left:40px;}
+.bottom .login .userName input{height:40px;width:280px;border:0;outline: none;}
+.bottom .login .pwd{background:url("pwd.jpg") no-repeat 4% center;height:40px;width:290px;margin:0 auto;border:1px solid #ccc;padding-left:40px;}
+.bottom .login .pwd input{height:40px;width:280px;border:0;outline: none}
+.bottom .login .forget{height:48px;line-height:48px;} 
+.bottom .login .forget a{text-decoration: none;float:right;margin-right:42px;cursor:pointer;color:#74d4a2;}
+.bottom .login .loginBtn{height:50px;width:335px;background:#58b471;color:#fff;line-height:50px;text-align:center;margin: 0 auto;cursor: pointer;}
+.bottom .login .register{text-align:center;height:40px;line-height:40px;color:#999;}
+.bottom .login .register a{color:#74d4a2;text-decoration: none}
+.bottom .login .useBottom{text-align:center;color:#999;margin:10px 0;}
+.bottom .login .useBottom span{display: inline-block;border-top:1px solid #ccc;height:1px;width:80px;margin-bottom:4px;}
+.bottom .login .useBottom em{font-style:normal;margin:0 20px;}
+.bottom .login h3 img{height:45px;width:45px;margin-left:70px;}

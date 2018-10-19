@@ -1,0 +1,14 @@
+{
+	"msg1":{
+		 "message": "ceshi guojihua $AA$ and $BB$",
+    	 "description": "msg1",
+    	 "placeholders": {
+		    "AA": {
+		      "content": "$1"
+		    },
+		    "BB":{
+		    	"content":"$2"
+		    }
+  		}
+	}
+}

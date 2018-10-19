@@ -20,6 +20,8 @@
 	<modules>
 		<module>translator-cloud-web</module>
 		<module>translator-cloud-plugin</module>
+		<module>translator-cloud-server</module>
+		<module>translator-cloud-admin</module>
 	</modules>
 	
 </project>
