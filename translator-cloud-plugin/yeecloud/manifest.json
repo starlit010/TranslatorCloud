@@ -1,0 +1,30 @@
+{	
+	"name" : "译库网页翻译",
+	"version" : "2.0.3",
+	"manifest_version" : 2,
+	"description" : "译库网页翻译是一款由中译语通科技（北京）有限公司开发的针对网页进行翻译的浏览器工具",
+	"options_page" : "config.html",
+	"icons": 
+	{              
+		"16": "images/48.png",
+	    "48": "images/48.png",
+	    "128": "images/48.png"
+	},  
+	"default_locale" : "en",
+	"homepage_url":"http://web.yeekit.com",
+	"permissions" : ["tabs", "<all_urls>", "http://*/*", "https://*/*","file://*/*","contextMenus", "notifications",
+			"webRequest", "webRequestBlocking","management"],
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",  
+    "background": {
+        "page": "bg.html"
+    },
+	"browser_action": {
+        "default_icon" : "images/48.png",
+		"default_title" : "译库网页翻译"
+    },
+    "content_scripts" : [{
+				"matches" : ["http://*/*", "https://*/*"],
+				"js" : ["lib/jquery.min.js","js/content.js"]
+			}],
+    "web_accessible_resources": ["content.html","register.html","backPassword.html","mark.html","login.html","registerSuccess.html","forget.html","js/register.js","js/mark.js","lib/jquery.min.js","js/contenthtml_bind_event.js"]
+}

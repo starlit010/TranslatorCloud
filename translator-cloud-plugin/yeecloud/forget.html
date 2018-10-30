@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>找回密码</title>
+	<style type="text/css">
+		*{margin:0;padding:0;}
+.clearfix{*zoom:1;}.clearfix:after{display:block;overflow:hidden;clear:both;height:0;visibility:hidden;content:".";}
+	html,body{height:100%;}
+ .login{background:#fff;border-radius:10px;box-shadow: 1px 1px 10px 0 #b8b8b9;height:440px;width:424px;position:absolute;top:0px;left:0;}
+ .login .loginInfo{height:30px;margin:10px auto 0;color:#f00;width:330px;font-size:14px;}
+ .login .login_title{background:#25c47a;line-height:66px;height:66px;color:#fff;font-size:16px;text-align:center;border-radius:10px 10px 0 0;}
+ .login .pwd{background:url("images/pwd.jpg") no-repeat 4% center;height:40px;width:290px;margin:0 auto 20px;border:1px solid #ccc;padding-left:40px;}
+ .login .pwd input{height:40px;width:280px;border:0;outline: none;font-size:14px;}
+ .login .confirmpwd{background:url("images/pwd.jpg") no-repeat 4% center;height:40px;width:290px;margin:0 auto;border:1px solid #ccc;padding-left:40px;}
+ .login .confirmpwd input{height:40px;width:280px;border:0;outline: none;font-size:14px;}
+ .login .Btn{height:50px;width:335px;background:#25c47a;color:#fff;border-radius:4px;line-height:50px;text-align:center;margin: 60px auto;cursor: pointer;font-size:18px;}
+ .login .login_title .closebtn{position:absolute;right:30px;top:18px;}
+	</style>
+</head>
+<body>
+			<div class="login .clearfix">
+				<p class="login_title">修改密码<img src="images/close.jpg" alt="" class="closebtn"></p>
+				<p class="loginInfo"></p>
+				<p class="pwd"><input type="password" placeholder="密码"></p>
+				<p class="confirmpwd"><input type="password" placeholder="确认密码" =""></p>
+				<p class="Btn">完成</p>
+				
+			</div>
+			<script src="lib/jquery.min.js"></script>
+			<script src="js/forget.js"></script>		
+</body>
+</html>

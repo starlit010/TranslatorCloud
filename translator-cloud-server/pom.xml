@@ -12,5 +12,12 @@
     <groupId>com.grayliu</groupId>
     <artifactId>translator-cloud-server</artifactId>
 
+    <dependencies>
+        <!--<dependency>-->
+            <!--<groupId></groupId>-->
+            <!--<artifactId></artifactId>-->
+            <!--<version></version>-->
+        <!--</dependency>-->
+    </dependencies>
 
 </project>
