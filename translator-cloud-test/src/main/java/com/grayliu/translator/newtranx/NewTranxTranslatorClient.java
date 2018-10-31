@@ -91,12 +91,8 @@ public class NewTranxTranslatorClient {
 //            logger.info("创建请求httpPost-URL={},params={}", url, listNVP);
             httpPost.setEntity(entity);
 
-
-
             httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
             httpPost.setHeader("UID", "68107ee83a114d43fc2d57f10157c4e8");
-
-
 
             httpClient = createSSLClientDefault();
             httpResponse = httpClient.execute(httpPost);
