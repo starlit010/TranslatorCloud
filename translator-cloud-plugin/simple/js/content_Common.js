@@ -1074,12 +1074,12 @@ var Content_Common_Function = {
 }
 
 //全部地址信息
-var root_url = "https://plugin.newtranx.com", //测试服务器
-    plugin_center_root = root_url + "/newtranx", //插件中心
+var root_url = "http://localhost:8080", //测试服务器
+    plugin_center_root = root_url + "/plugin", //插件中心
     translate_root = root_url + "/translate",//翻译项目
     cas_root = root_url + "/cas/author",//cas项目
     user_root = root_url + "/user",//用户中心
-    usersys_root = root_url + "/ucenter",//用户中心
+    usersys_root = root_url + "/user",//用户中心
 // var root_url = "https://test.newtranx.com", //测试服务器
 //     plugin_center_root = root_url + "/newtranx", //插件中心
 //     translate_root = root_url + "/translate",//翻译项目
@@ -1087,25 +1087,32 @@ var root_url = "https://plugin.newtranx.com", //测试服务器
 //     user_root = root_url + "/usercenter",//用户中心
 //     usersys_root = root_url + "/usersys",//用户中心接口
     au = {
+        "www": "http://localhost:8080", //官网地址
+        "plugin": "http://localhost:8080/plugin", //插件主页地址
+
+        "transURL": translate_root + "/translate",  //翻译 api
+        "getSubject": translate_root + "/project", //获得通用领域的json
         "getSourceURL": translate_root + "/lang/chect", //语言检测 api
-        "transURL": translate_root + "/v1/translate",  //翻译 api
         "getSystemMessage": translate_root + "/query/message",  //系统消息/非及时消息，
         "getTimelyMessage": translate_root + "/query/timely",   //及时消息
-        "getDownload": usersys_root + "/file/download?fileId=",
-        "getSubject": translate_root + "/project", //获得通用领域的json
 
-        "www": "http://www.newtranx.com/", //官网地址
-        "plugin": "http://plugin.newtranx.com/", //插件主页地址
+        "login": cas_root + "/token", //登录
+
         "logout": plugin_center_root + "/logout", //退出
-        "personal": plugin_center_root + "/v2/center", //个人中心地址
-        "buy": plugin_center_root + "/v2/buy", //购买地址
-        "messages": plugin_center_root + "/v2/messages",//个人中心，消息
+        "messages": plugin_center_root + "/messages",//个人消息
+        "personal": plugin_center_root + "/center", //个人中心地址
+        "buy": plugin_center_root + "/buy", //购买地址
+        "userInfo": plugin_center_root + "/user/me", //检测是否登录 api 0游客 1普通用户 2vip
+
+        //静态跳转
         "forget": user_root + "/user.html#/forget/index?service=" + plugin_center_root + "/v2/center",//忘记密码
         "register": user_root + "/user.html#/register/index?service=" + plugin_center_root + "/v2/center",//注册
 
-        "userInfo": plugin_center_root + "/v2/user/me", //检测是否登录 api 0游客 1普通用户 2vip
-        "portrait": usersys_root + "/file/download?fileId=",
-        "login": cas_root + "/token", //登录
+        //暂时不考虑
+        "getDownload": usersys_root + "/file/download?fileId=",
+        "portrait": usersys_root + "/file/download?fileId="
+
+
     };
 
 
