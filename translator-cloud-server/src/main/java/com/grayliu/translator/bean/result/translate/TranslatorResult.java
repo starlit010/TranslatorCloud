@@ -1,8 +1,7 @@
-package com.grayliu.translator.bean;
+package com.grayliu.translator.bean.result.translate;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.FieldNameConstants;
 
 import java.util.List;
 

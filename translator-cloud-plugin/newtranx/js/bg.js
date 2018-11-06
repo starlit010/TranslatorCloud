@@ -94,6 +94,11 @@ chrome.runtime.onInstalled.addListener(function(info) {
         day_alert_is: 'on',
         day_alert_time: ''
     }
+    new Fingerprint2().get(function(result, componts){
+        default_settingsInfo['uid'] = result
+        System_Commin_Function.initSettingsInfo(default_settingsInfo);
+    });
+
 });
 
 chrome.runtime.onConnect.addListener(function (port) {

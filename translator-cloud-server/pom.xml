@@ -74,25 +74,99 @@
         </dependency>
 
         <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutz</artifactId>
+            <version>1.r.66</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>2.0.4.RELEASE</version>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.ttxs</groupId>
+            <artifactId>ttxsBase</artifactId>
+            <version>2.0.24</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/ttsxBase-2.0.24.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>translator-cloud-server-1.0.0-SNAPSHOT</finalName>
         <plugins>
             <!--<plugin>
                <groupId>org.springframework.boot</groupId>
                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>-->
             <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <!--使用自己的Manifest文件，运行正常-->
+                        <!--<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>-->
+                        <!--使用插件添加的Manifest文件，运行正常，一定要注意Manifest中jar包名称和lib文件夹下jar包名称版本号后缀等一定要一致，否则找不到依赖jar，此处有坑-->
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!--指定依赖资源路径前缀-->
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <!--<mainClass>cn.codepub.maven.test.Main</mainClass>-->
+                        </manifest>
+                        <!--可以把依赖本地系统的Jar包加入Manifest文件中-->
+                        <manifestEntries>
+                            <Class-Path>lib/ttsxBase-2.0.24.jar</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+                <!--<configuration>-->
+                    <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
+                <!--</configuration>-->
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <!--使用自己的Manifest文件，运行正常-->
+                        <!--<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>-->
+                        <!--使用插件添加的Manifest文件，运行正常，一定要注意Manifest中jar包名称和lib文件夹下jar包名称版本号后缀等一定要一致，否则找不到依赖jar，此处有坑-->
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!--指定依赖资源路径前缀-->
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <!--<mainClass>cn.codepub.maven.test.Main</mainClass>-->
+                        </manifest>
+                        <!--&lt;!&ndash;可以把依赖本地系统的Jar包加入Manifest文件中&ndash;&gt;-->
+                        <manifestEntries>
+                            <Class-Path>lib/ttsxBase-2.0.24.jar</Class-Path>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
 
@@ -100,6 +174,30 @@
                 <!--<artifactId>maven-war-plugin</artifactId>-->
                 <!--<version>3.0.0</version>-->
             <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                    <excludeTransitive>false</excludeTransitive>
+                    <stripVersion>false</stripVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeTransitive>false</excludeTransitive>
+                            <stripVersion>false</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

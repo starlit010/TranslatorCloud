@@ -1,4 +1,4 @@
-package com.grayliu.translator.bean;
+package com.grayliu.translator.bean.request.translate;
 
 import lombok.Getter;
 import lombok.Setter;

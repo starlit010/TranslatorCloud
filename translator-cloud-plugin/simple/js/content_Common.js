@@ -592,7 +592,6 @@ var Content_Common_Function = {
         if (os.indexOf("Win") > -1) {
             if (userAgent.indexOf("Windows NT 5.0") > -1) {
                 info += "Win2000";
-
             } else if (userAgent.indexOf("Windows NT 5.1") > -1) {
                 info += "WinXP";
             } else if (userAgent.indexOf("Windows NT 5.2") > -1) {
@@ -1074,21 +1073,41 @@ var Content_Common_Function = {
 }
 
 //全部地址信息
-var root_url = "http://localhost:8080", //测试服务器
-    plugin_center_root = root_url + "/plugin", //插件中心
+var root_url = "", //测试服务器
+    http_url = "http://localhost:8080",
+    https_url = "https://localhost:8443";
+
+var protocal = window.location.protocol.split(':')[0];
+
+if(protocal === 'https'){
+
+    root_url = https_url;
+
+}else{
+
+    root_url = http_url;
+
+}
+
+var plugin_center_root = root_url + "/plugin", //插件中心
+
     translate_root = root_url + "/translate",//翻译项目
+
     cas_root = root_url + "/cas/author",//cas项目
+
     user_root = root_url + "/user",//用户中心
-    usersys_root = root_url + "/user",//用户中心
+
+    usersys_root = root_url + "/user";//用户中心
+
 // var root_url = "https://test.newtranx.com", //测试服务器
 //     plugin_center_root = root_url + "/newtranx", //插件中心
 //     translate_root = root_url + "/translate",//翻译项目
 //     cas_root = root_url + "/cas/author",//cas项目
 //     user_root = root_url + "/usercenter",//用户中心
-//     usersys_root = root_url + "/usersys",//用户中心接口
-    au = {
-        "www": "http://localhost:8080", //官网地址
-        "plugin": "http://localhost:8080/plugin", //插件主页地址
+
+var au = {
+        "www": root_url, //官网地址
+        "plugin": root_url+ "/plugin", //插件主页地址
 
         "transURL": translate_root + "/translate",  //翻译 api
         "getSubject": translate_root + "/project", //获得通用领域的json

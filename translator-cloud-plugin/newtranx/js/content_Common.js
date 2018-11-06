@@ -592,6 +592,7 @@ var Content_Common_Function = {
         if (os.indexOf("Win") > -1) {
             if (userAgent.indexOf("Windows NT 5.0") > -1) {
                 info += "Win2000";
+
             } else if (userAgent.indexOf("Windows NT 5.1") > -1) {
                 info += "WinXP";
             } else if (userAgent.indexOf("Windows NT 5.2") > -1) {
@@ -609,6 +610,7 @@ var Content_Common_Function = {
             } else {
                 info += "Others";
             }
+
         } else if (os.indexOf("Mac") > -1) {
             info += "Mac";
         } else if (os.indexOf("X11") > -1) {
@@ -680,7 +682,7 @@ var Content_Common_Function = {
                 '<div id="transRes" style="margin:0 auto;margin-top:10px;padding-left:5px;padding-top:5px;font-size:14px;width:93%;height:140px;overflow:auto;border:1px solid lightgrey;border-radius:5px;cursor:text;">' +
                     '<div style="color:gray;margin-top:60px;text-align:center;font-size:12px;">翻译中 . . . </div>' +
                 '</div>' +
-                '<div style="color:#999999;margin-top:0px;margin-left:10px;font-size:12px;width:340px;position:relative;font-family:微软雅黑;">翻译内容由博雅提供' +
+                '<div style="color:#999999;margin-top:0px;margin-left:10px;font-size:12px;width:340;position:relative;font-family:微软雅黑;">翻译内容由新译提供' +
                 '<a href="http://www.newtranx.com" target="blank_" text-align="right" style="color:#000099;position:absolute;right:10px;">发现更多精彩</a></div>';
             $newtranxbox.append(childStr)
             //动态追加 下拉列表
@@ -709,6 +711,7 @@ var Content_Common_Function = {
             Content_Common_Function.transSelectText(NewTranx_Source_language, NewTranx_Target_language, selectText);
             //@TODO 为啥要重置语言？
             // Content_Common_Commond._NEWTRANX_SET_LANGUAGE();
+
         } else {
             //监听到鼠标在newtranxbox里时，不关闭box
             Content_Common_Function.removeNewtranxBox()
@@ -1085,12 +1088,9 @@ var root_url = "https://plugin.newtranx.com", //测试服务器
 //     usersys_root = root_url + "/usersys",//用户中心接口
     au = {
         "getSourceURL": translate_root + "/lang/chect", //语言检测 api
-        //"transURL": translate_root + "/v1/translate",  //翻译 api
-        //修改翻译接口为yeecloud地址
-        "transURL": "http://web.yeekit.com" + "/plugin/translate",
+        "transURL": translate_root + "/v1/translate",  //翻译 api
         "getSystemMessage": translate_root + "/query/message",  //系统消息/非及时消息，
-        "getTimelyMessage": translate_root + "/query/timely",   //及时消息   获取统计信息接口
-        //"getTimelyMessage": "",
+        "getTimelyMessage": translate_root + "/query/timely",   //及时消息
         "getDownload": usersys_root + "/file/download?fileId=",
         "getSubject": translate_root + "/project", //获得通用领域的json
 

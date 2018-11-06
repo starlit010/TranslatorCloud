@@ -1,10 +1,14 @@
 package com.grayliu.translator.controller;
 
-import com.grayliu.translator.bean.TranslatorRequest;
-import com.grayliu.translator.bean.TranslatorResult;
+import com.grayliu.translator.bean.request.translate.TranslatorRequest;
+import com.grayliu.translator.bean.result.translate.LanguageResult;
+import com.grayliu.translator.bean.result.translate.TranslatorResult;
 import com.grayliu.translator.enums.Constants;
+import com.grayliu.translator.enums.Menu;
 import com.grayliu.translator.util.DesUtil;
 import com.grayliu.translator.util.TranslateUtil;
+import com.grayliu.translator.util.langdetect.Detector;
+import com.grayliu.translator.util.langdetect.DetectorFactory;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +35,7 @@ public class TranslateController {
     @RequestMapping("/translate")
     public TranslatorResult translate(TranslatorRequest translatorRequest,HttpServletRequest request,HttpServletResponse response){
 
-        log.info("/plugin/translate===>"+translatorRequest.toString());
+        log.info("/translate/translate===>"+translatorRequest.toString());
 
         String access_token = request.getHeader("access_token");
         String access_param = request.getParameter("access_token");//为了解决Safari浏览器无法更改请求头的问题
@@ -55,8 +60,7 @@ public class TranslateController {
                 url=url.substring(0, url.length()-1);
             }
             response.setHeader("Access-Control-Allow-Origin", url);
-            response.setHeader("Access-Control-Allow-Headers",
-                    "Origin, X-Requested-With, Content-Type, Accept, Cookie");
+            response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cookie");
             response.setHeader("Access-Control-Allow-Credentials", "true");
         }else{
             response.setHeader("Access-Control-Allow-Origin", "*");
@@ -66,8 +70,6 @@ public class TranslateController {
 //		String[] wordArr = request.getParameter("word").replaceAll("\"", "").split(",");
         String srcl = request.getParameter("srcl");
         String tgtl = request.getParameter("tgtl");
-
-
         /**
          * 需要从配置数据库里查询
          * 暂时先不管，默认配置为1
@@ -124,19 +126,32 @@ public class TranslateController {
     }
 
     /**
-     * 获得通用领域
+     * 获得界面语种
+     * 目前就两个语种，中文和英文
      */
     @RequestMapping("/project")
-    public void project(){
-
+    public Object project(){
+        return Menu.Ch.getTree();
     }
 
     /**
      * 语言检测
      */
     @RequestMapping("/lang/check")
-    public void checkLanguage(){
-
+    public LanguageResult checkLanguage(String text,HttpServletRequest request,HttpServletResponse response){
+        String s = null;
+        LanguageResult languageResult = null;
+        try{
+            s = URLDecoder.decode(URLDecoder.decode(text, "utf-8"), "utf-8");
+            Detector d = DetectorFactory.create();
+            d.append(s);
+            String lang = d.detect();
+            languageResult = new LanguageResult(lang, s);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return languageResult;
     }
 
     /**

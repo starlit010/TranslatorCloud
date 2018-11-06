@@ -1,7 +1,7 @@
 {
 	
 	//plugin.html
-	"title":  "博雅科技信息技术有限公司" ,
+	"title":  "新译科技信息技术有限公司" ,
 	"inputTextToBeTranslated":  "输入需要翻译的文字" ,
 	"Translation":  "翻译中..." ,
 	"translate":  "翻译" ,
@@ -69,7 +69,7 @@
 	"remoteInterfaceCallFailure": "远程接口调用失败，翻译失败!",
 	"choiceOfLanguage": "选择语言：",
 	//"Translation": "翻译中 . . .",
-	"translationContentIsProvidedByNewTranslation": "翻译内容由博雅提供",
+	"translationContentIsProvidedByNewTranslation": "翻译内容由新译提供",
 	"findMoreWonderful": "发现更多精彩"
 
 }

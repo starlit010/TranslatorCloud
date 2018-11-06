@@ -1,47 +1,44 @@
 'use strict';
 var timeout = null;
 var languages,
-    supportlang,
-    supportsubject,
-    setting_info,
-    sourcelang,
-    targetlang,
+    supportLang,
+    supportSubject,
+    SETTING_INFO,
+    sourceLang,
+    targetLang,
     subject,
-    istranslate = false,
+    isTranslate = false,
     auto_translate_flag = true;//是否已经预翻译
 
 var first = true;
 
-var demojson = {
+var demoJson = {
     zh: {
-        tourist: '选择“领域”会让翻译结果更加准确哦~要选择质量更好的翻译结果吗？赶快成为vip吧~',
-        user: '选择“领域”会让翻译结果更加准确哦~要选择质量更好的翻译结果吗？赶快成为vip吧~',
-        notranslate: "您设置了一律不翻译"
+        tourist: '选择“领域”会让翻译结果更加准确哦~要选择质量更好的翻译结果吗？赶快成为VIP吧~',
+        user: '选择“领域”会让翻译结果更加准确哦~要选择质量更好的翻译结果吗？赶快成为VIP吧~',
+        noTranslate: "您设置了一律不翻译"
     },
     en: {
-        tourist: 'our domain-specific mt delivers more accurate translation to you. want a better translated text? join our vip club.',
-        user: 'our domain-specific mt delivers more accurate translation to you. want a better translated text? join our vip club.',
-        notranslate: "you set it all without translation "
+        tourist: 'Our domain-specific MT delivers more accurate translation to you. Want a better translated text? Join our VIP club.',
+        user: 'Our domain-specific MT delivers more accurate translation to you. Want a better translated text? Join our VIP club.',
+        noTranslate: "You set it all without translation "
     }
 }
 
-var bind_common_function = {
-
-
-
+var Bind_Common_Function = {
     //初始化参数
-    initparams: function (params) {
-        setting_info = params.setting_info
+    initParams: function (params) {
+        SETTING_INFO = params.SETTING_INFO
         languages = params.languages
-        supportlang = params.supportlang
-        supportsubject = params.supportsubject
+        supportLang = params.supportLang
+        supportSubject = params.supportSubject
     },
     //初始化设置
-    initsettings: function () {
-        for (var k in setting_info) {
-            var v = setting_info[k];
-            if (k.indexof('_on_off') > -1) {
-                v == 'on' ? $('#' + k).addclass('on') : $('#' + k).removeclass('on')
+    initSettings: function () {
+        for (var k in SETTING_INFO) {
+            var v = SETTING_INFO[k];
+            if (k.indexOf('_on_off') > -1) {
+                v == 'on' ? $('#' + k).addClass('on') : $('#' + k).removeClass('on')
                 if (k == 'without_translate_on_off') {
                     if (v == 'on') {
                         $('#without_translate_option').show()
@@ -49,104 +46,104 @@ var bind_common_function = {
                         $('#without_translate_option').hide()
                     }
                 }
-            } else if (k.indexof('_option') > -1) {
-                $('#' + k).find('[data-value]').removeclass('on')
-                $('#' + k).find('[data-value="' + v + '"]').addclass('on');
+            } else if (k.indexOf('_option') > -1) {
+                $('#' + k).find('[data-value]').removeClass('on')
+                $('#' + k).find('[data-value="' + v + '"]').addClass('on');
             }
         }
     },
-    inituserinfo: function () {
-        var subjectswitch = function (e) {
-            var key = e.which || e.keycode;
+    initUserInfo: function () {
+        var subjectSwitch = function (e) {
+            var key = e.which || e.keyCode;
             if(!key) return;
-            var tipsparamstourist = {
-                content: demojson[setting_info.i18n_lang_option].tourist,
+            var tipsParamsTourist = {
+                content: demoJson[SETTING_INFO.i18n_lang_option].tourist,
                 type: '10'
             }
-            var tipsparamsuser = {
-                content: demojson[setting_info.i18n_lang_option].user,
+            var tipsParamsUser = {
+                content: demoJson[SETTING_INFO.i18n_lang_option].user,
                 type: '10'
             }
-            bind_common_function.tipsmessage(setting_info.user_is_login == 'on' ? tipsparamsuser : tipsparamstourist);
+            Bind_Common_Function.tipsMessage(SETTING_INFO.user_is_login == 'on' ? tipsParamsUser : tipsParamsTourist);
         }
-        var $userportrait = $('#userportrait');
+        var $userPortrait = $('#userPortrait');
         var $logout = $('#logout');
-        if (setting_info.user_is_login == 'on') {
+        if (SETTING_INFO.user_is_login == 'on') {
             $('#select_subject').show()
             $('.youke').hide()
             $('#settings').show()
             $('#screen_vh').show()
-            $userportrait.show()
+            $userPortrait.show()
             $logout.show()
-            $('[data-toggle="loginform"]').hide()
-            $userportrait.attr('src', setting_info.user_info.portrait)
+            $('[data-toggle="loginForm"]').hide()
+            $userPortrait.attr('src', SETTING_INFO.user_info.portrait)
             //领域
-            if(setting_info.user_info.viptype == 2) {
-                $('#select_subject').attr('data-disable', null).off('click.subjectswitch')
+            if(SETTING_INFO.user_info.vipType == 2) {
+                $('#select_subject').attr('data-disable', null).off('click.subjectSwitch')
             } else {
-                $('#select_subject').attr('data-disable', true).on('click.subjectswitch', subjectswitch)
+                $('#select_subject').attr('data-disable', true).on('click.subjectSwitch', subjectSwitch)
             }
         } else {
-            for (var k in setting_info.default) {
-                setting_info[k] = setting_info.default[k]
+            for (var k in SETTING_INFO.default) {
+                SETTING_INFO[k] = SETTING_INFO.default[k]
             }
             $('#settings').hide()
             $('#screen_vh').hide()
-            $('#select_subject').attr('data-disable', true).on('click.subjectswitch', subjectswitch)
+            $('#select_subject').attr('data-disable', true).on('click.subjectSwitch', subjectSwitch)
 
-            $('[data-toggle="loginform"]').show()
-            $userportrait.hide()
+            $('[data-toggle="loginForm"]').show()
+            $userPortrait.hide()
             $logout.hide()
         }
     },
     logout: function() {
-        setting_info.user_is_login = 'off';
-        setting_info.user_info = '';
-        setting_info.user_token = '';
-        bind_common_command._newtranx_modify_settingsinfo();
-        bind_common_command._newtranx_user_logout();
-        bind_common_function.inituserinfo();
+        SETTING_INFO.user_is_login = 'off';
+        SETTING_INFO.user_info = '';
+        SETTING_INFO.user_token = '';
+        Bind_Common_Command._NEWTRANX_MODIFY_SETTINGSINFO();
+        Bind_Common_Command._NEWTRANX_USER_LOGOUT();
+        Bind_Common_Function.initUserInfo();
 
     },
     //初始化语言
-    updatetext: function () {
+    updateText: function () {
         'use strict';
         var i18n = $.i18n(), language;
-        language = setting_info.i18n_lang_option;
+        language = SETTING_INFO.i18n_lang_option;
         i18n.locale = language;
         i18n.load('bundle/demo-' + i18n.locale + '.json', i18n.locale).done(
             function () {
-                bind_common_function.callback();
+                Bind_Common_Function.callback();
             }
         );
     },
     callback: function () {
         var prefix = 'i18n-'
-        //text alt title beforecontent
+        //text alt title beforeContent
         $("["+prefix+"text]").each(function () {
             var $that = $(this);
-            var messagekey = $that.attr(prefix + 'text')
-            if (!messagekey) return
-            $that.text($.i18n(messagekey));
+            var messageKey = $that.attr(prefix + 'text')
+            if (!messageKey) return
+            $that.text($.i18n(messageKey));
         });
         $("["+prefix+"title]").each(function () {
             var $that = $(this);
-            var messagekey = $that.attr(prefix + 'title')
-            if (!messagekey) return
-            $that.attr('title', $.i18n(messagekey));
+            var messageKey = $that.attr(prefix + 'title')
+            if (!messageKey) return
+            $that.attr('title', $.i18n(messageKey));
         });
         $("["+prefix+"alt]").each(function () {
             var $that = $(this);
-            var messagekey = $that.attr(prefix + 'alt')
-            if (!!messagekey) {
-                $that.attr('alt', $.i18n(messagekey));
+            var messageKey = $that.attr(prefix + 'alt')
+            if (!!messageKey) {
+                $that.attr('alt', $.i18n(messageKey));
             }
         });
-        $("["+prefix+"beforecontent]").each(function () {
+        $("["+prefix+"beforeContent]").each(function () {
             var $that = $(this);
-            var messagekey = $that.attr(prefix + 'beforecontent')
-            if (!!messagekey) {
-                $that.attr('beforecontent', $.i18n(messagekey));
+            var messageKey = $that.attr(prefix + 'beforeContent')
+            if (!!messageKey) {
+                $that.attr('beforeContent', $.i18n(messageKey));
             }
         });
         var select_srcl = $('#select_srcl ul li')
@@ -160,110 +157,110 @@ var bind_common_function = {
         var fov = fo.attr('data-value')
         select_srcl.each(function () {
             var $that = $(this)
-            $that.text(languages[setting_info.i18n_lang_option][$that.attr('data-value')])
+            $that.text(languages[SETTING_INFO.i18n_lang_option][$that.attr('data-value')])
         })
         select_tgtl.each(function () {
             var $that = $(this)
-            $that.text(languages[setting_info.i18n_lang_option][$that.attr('data-value')])
+            $that.text(languages[SETTING_INFO.i18n_lang_option][$that.attr('data-value')])
         })
-        so.text(languages[setting_info.i18n_lang_option][sov]).attr('data-value', sov)
-        to.text(languages[setting_info.i18n_lang_option][tov]).attr('data-value', tov)
-        if(!!supportsubject[setting_info.i18n_lang_option][sov + '-' + tov]) {
-            fo.text(supportsubject[setting_info.i18n_lang_option][sov + '-' + tov][fov]).attr('data-value', fov)
+        so.text(languages[SETTING_INFO.i18n_lang_option][sov]).attr('data-value', sov)
+        to.text(languages[SETTING_INFO.i18n_lang_option][tov]).attr('data-value', tov)
+        if(!!supportSubject[SETTING_INFO.i18n_lang_option][sov + '-' + tov]) {
+            fo.text(supportSubject[SETTING_INFO.i18n_lang_option][sov + '-' + tov][fov]).attr('data-value', fov)
         }
     },
-    initi18n: function () {
+    initI18n: function () {
         'use strict';
-        // enable debug
+        // Enable debug
         $.i18n.debug = true;
-        bind_common_function.updatetext();
+        Bind_Common_Function.updateText();
     },
     //收集表单数据
-    getformvalue: function () {
-        for (var k in setting_info) {
-            if (k.indexof('_on_off') > -1) {
-                $('#' + k).hasclass('on') ? setting_info[k] = 'on' : setting_info[k] = 'off'
-            } else if (k.indexof('_option') > -1) {
-                $('#' + k).find('[data-toggle="checkradio"]').each(function () {
-                    if (!$(this).hasclass('on')) return
-                    setting_info[k] = $(this).attr('data-value');
+    getFormValue: function () {
+        for (var k in SETTING_INFO) {
+            if (k.indexOf('_on_off') > -1) {
+                $('#' + k).hasClass('on') ? SETTING_INFO[k] = 'on' : SETTING_INFO[k] = 'off'
+            } else if (k.indexOf('_option') > -1) {
+                $('#' + k).find('[data-toggle="checkRadio"]').each(function () {
+                    if (!$(this).hasClass('on')) return
+                    SETTING_INFO[k] = $(this).attr('data-value');
                 })
             }
         }
     },
     //一律不翻译的判断
-    withouttranslatecheck: function () {
-        if (setting_info.without_translate_on_off == 'off') return true;
-        if (setting_info.without_translate_option != sourcelang) return true;
-        bind_common_function.tipsdelay(demojson[setting_info.i18n_lang_option]['notranslate'] + languages[setting_info.i18n_lang_option][sourcelang]);
+    withoutTranslateCheck: function () {
+        if (SETTING_INFO.without_translate_on_off == 'off') return true;
+        if (SETTING_INFO.without_translate_option != sourceLang) return true;
+        Bind_Common_Function.tipsDelay(demoJson[SETTING_INFO.i18n_lang_option]['noTranslate'] + languages[SETTING_INFO.i18n_lang_option][sourceLang]);
     },
     //临时消息弹窗，限制15字消息
-    tipsdelay: function (content) {
+    tipsDelay: function (content) {
         content = content + ''
         if (content.length > 55) content = content.substr(0, 55);
-        cleartimeout(timeout)
+        clearTimeout(timeout)
         $('#limit_tip').text(content);
-        $('#limit_tip').fadein();
-        timeout = settimeout(function () {
-            $('#limit_tip').fadeout();
+        $('#limit_tip').fadeIn();
+        timeout = setTimeout(function () {
+            $('#limit_tip').fadeOut();
         }, 2000);
     },
     //弹窗
-    tipsmessage: function (tipparams) {
-        if (!tipparams) return
-        bind_common_function.hidetipsmessage();
+    tipsMessage: function (tipParams) {
+        if (!tipParams) return
+        Bind_Common_Function.hideTipsMessage();
         $('#curtain').show();
         var mes = $('#message');
-        mes.addclass('on')
+        mes.addClass('on')
         var tit = mes.find('.title')
         var ban = mes.find('.banner')
         var con = mes.find('.content')
-        var detform = mes.find('.detailsform')
-        var dethref = mes.find('.detailshref')
-        var btnlist = mes.find('.btn_list')
-        if (!!tipparams.title)
-            tit.text(tipparams.title).show()
-        if (!!tipparams.image)
-            ban.attr('src', tipparams.getdownload + tipparams.image).show()
-        if (!!tipparams.content)
-            con.text(tipparams.content).show()
-        if(!!tipparams.url && tipparams.url.indexof("http") > -1) {
-            dethref.attr('value', tipparams.url).show()
+        var detForm = mes.find('.detailsForm')
+        var detHref = mes.find('.detailsHref')
+        var btnList = mes.find('.btn_list')
+        if (!!tipParams.title)
+            tit.text(tipParams.title).show()
+        if (!!tipParams.image)
+            ban.attr('src', tipParams.getDownload + tipParams.image).show()
+        if (!!tipParams.content)
+            con.text(tipParams.content).show()
+        if(!!tipParams.url && tipParams.url.indexOf("http") > -1) {
+            detHref.attr('value', tipParams.url).show()
         } else {
-            if (setting_info.user_is_login === 'on' && tipparams.type === '0')
-                detform.attr('data-value', 'messages').show()
+            if (SETTING_INFO.user_is_login === 'on' && tipParams.type === '0')
+                detForm.attr('data-value', 'messages').show()
         }
-            // det.attr('data-value', tipparams.url).show()
+            // det.attr('data-value', tipParams.url).show()
         //控制按钮的显示
-        btnlist.find('div').hide()
-        if(!!tipparams.type) {
-            var type = parseint(tipparams.type)
+        btnList.find('div').hide()
+        if(!!tipParams.type) {
+            var type = parseInt(tipParams.type)
             if(type < 0 && type > 5) return;
-            btnlist.find('.btn' + tipparams.type).show();
+            btnList.find('.btn' + tipParams.type).show();
         }
 
-        // switch(tipparams.type) {
+        // switch(tipParams.type) {
         //     case 1:
-        //         //@todo
-        //         btnlist.find('.btn' + tipparams.type).show()
+        //         //@TODO
+        //         btnList.find('.btn' + tipParams.type).show()
         //         break;
         //     case 2:
-        //         //@todo 月使用量
+        //         //@TODO 月使用量
         //         break;
         //     case 2:
-        //         //@todo vip预警
+        //         //@TODO viP预警
         //         break;
         //     case 2:
-        //         //@todo vip到期
+        //         //@TODO vip到期
         //         break;
         //     case 5:
-        //         //@todo vip赠送消息
+        //         //@TODO vip赠送消息
         //         break;
         // }
     },
     //判断显示那个按钮（1翻译 2原文 3译文 4翻译中）
     //增加判断（显示翻译按钮、译文按钮，可以划词翻译；显示原文按钮、翻译中按钮不可以进行划词翻译。）
-    btnswitch: function (num) {
+    btnSwitch: function (num) {
         // var $btns = $('.btns')
         //
         // $btns.find('button').hide()
@@ -279,340 +276,340 @@ var bind_common_function = {
         switch (num) {
             case 1:
                 btns.trans_btn.show()
-                istranslate = false;
+                isTranslate = false;
                 break;
             case 2:
                 btns.see_srcl.show()
-                istranslate = true;
+                isTranslate = true;
                 break;
             case 3:
                 btns.see_tgtl.show()
-                istranslate = false;
+                isTranslate = false;
                 break;
             case 4:
                 btns.transing_btn.show()
-                istranslate = true;
+                isTranslate = true;
                 break;
             default:
-                istranslate = false;
+                isTranslate = false;
         }
-        bind_common_command._window_newtranx_is_translate();
+        Bind_Common_Command._WINDOW_NEWTRANX_IS_TRANSLATE();
     },
     //初始化语言对
-    newtranxsetlanguage: function (t) {
-        sourcelang = t.data.sourcelang
-        targetlang = t.data.targetlang
-        for (var a in languages[setting_info.i18n_lang_option]) {
-            $("#select_srcl .select_center ul").append("<li class='options' data-value='" + a + "'>" + languages[setting_info.i18n_lang_option][a] + "</li>");
+    newtranxSetLanguage: function (t) {
+        sourceLang = t.data.sourceLang
+        targetLang = t.data.targetLang
+        for (var a in languages[SETTING_INFO.i18n_lang_option]) {
+            $("#select_srcl .select_center ul").append("<li class='options' data-value='" + a + "'>" + languages[SETTING_INFO.i18n_lang_option][a] + "</li>");
         }
         //设置界面中的语言对
-        if (!languages[setting_info.i18n_lang_option][sourcelang]) sourcelang = 'zh'
-        targetlang = (sourcelang == targetlang) ? 'en' : targetlang;
-        var $current = $("#select_srcl").children('.dropdown_menu').find(' ul li[data-value="' + sourcelang + '"]');
+        if (!languages[SETTING_INFO.i18n_lang_option][sourceLang]) sourceLang = 'zh'
+        targetLang = (sourceLang == targetLang) ? 'en' : targetLang;
+        var $current = $("#select_srcl").children('.dropdown_menu').find(' ul li[data-value="' + sourceLang + '"]');
         $current.trigger('click');
-        $("#targetlang").val(targetlang);
+        $("#targetLang").val(targetLang);
 
-        // bind_common_command._newtranx_translate();
-        bind_common_command._newtranx_msg(sourcelang + targetlang);
+        // Bind_Common_Command._NEWTRANX_TRANSLATE();
+        Bind_Common_Command._NEWTRANX_MSG(sourceLang + targetLang);
         //网页预翻译
-        if (auto_translate_flag && 'on' == setting_info.web_auto_trans_on_off) {
+        if (auto_translate_flag && 'on' == SETTING_INFO.web_auto_trans_on_off) {
             //开始翻译
-            bind_common_function.btnswitch(4);
-            bind_common_command._newtranx_translate();
+            Bind_Common_Function.btnSwitch(4);
+            Bind_Common_Command._NEWTRANX_TRANSLATE();
         }
         //只要初始化一次语言，就不再预翻译
         auto_translate_flag = false;
     },
-    hidetipsmessage: function () {
-        $('#message').removeclass('on')
+    hideTipsMessage: function () {
+        $('#message').removeClass('on')
         $('#curtain').hide()
-        var arrhide = ['.title', '.banner', '.content', '.detailsform', '.detailshref']
-        $.each(arrhide, function (idx, val) {
+        var arrHide = ['.title', '.banner', '.content', '.detailsForm', '.detailsHref']
+        $.each(arrHide, function (idx, val) {
             $('#message').find(val).hide()
         })
     }
 }
 
 //content的命令统一发送的地方
-var bind_common_command = {
+var Bind_Common_Command = {
     "port": chrome.runtime.connect(),
     //重置语言
-    "_newtranx_reset_language": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_reset_language",
-            sourcelang: sourcelang,
-            targetlang: targetlang,
+    "_NEWTRANX_RESET_LANGUAGE": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_RESET_LANGUAGE",
+            sourceLang: sourceLang,
+            targetLang: targetLang,
             subject: subject
         }, "*");
     },
     //打开窗口
-    "_newtranx_window_open": function (urlname) {
-        bind_common_command.port.postmessage({
-            action: "newtranx_window_open",
-            url: urlname
+    "_NEWTRANX_WINDOW_OPEN": function (urlName) {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_WINDOW_OPEN",
+            url: urlName
         }, "*");
     },
-    "_newtranx_form_open": function (urlname) {
-        bind_common_command.port.postmessage({
-            action: "newtranx_form_open",
-            url: urlname
+    "_NEWTRANX_FORM_OPEN": function (urlName) {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_FORM_OPEN",
+            url: urlName
         }, "*");
     },
     //关闭插件
-    "_newtranx_remove_plugin": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_remove_plugin"
+    "_NEWTRANX_REMOVE_PLUGIN": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_REMOVE_PLUGIN"
         }, "*")
     },
     //翻译
-    "_newtranx_translate": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_translate"
+    "_NEWTRANX_TRANSLATE": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_TRANSLATE"
         }, "*");
     },
     //是否已经翻译
-    "_window_newtranx_is_translate": function () {
-        bind_common_command.port.postmessage({
-            action: "window_newtranx_is_translate",
-            istranslate: istranslate
+    "_WINDOW_NEWTRANX_IS_TRANSLATE": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "WINDOW_NEWTRANX_IS_TRANSLATE",
+            isTranslate: isTranslate
         }, "*");
     },
     //短文翻译
-    "_newtranx_translate_text": function (text) {
-        bind_common_command.port.postmessage({
-            action: "newtranx_translate_text",
+    "_NEWTRANX_TRANSLATE_TEXT": function (text) {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_TRANSLATE_TEXT",
             text: text
         }, "*");
     },
     //修改配置
-    "_newtranx_modify_settingsinfo": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_modify_settingsinfo",
-            setting_info: setting_info
+    "_NEWTRANX_MODIFY_SETTINGSINFO": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_MODIFY_SETTINGSINFO",
+            SETTING_INFO: SETTING_INFO
         }, "*");
     },
     //测试消息
-    "_newtranx_msg": function (msg) {
-        bind_common_command.port.postmessage({
+    "_NEWTRANX_MSG": function (msg) {
+        Bind_Common_Command.port.postMessage({
             action: "msg",
             msg: msg
         }, "*");
     },
     //切换横竖屏
-    "_newtranx_screen_vh": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_screen_vh",
-            setting_info: setting_info
+    "_NEWTRANX_SCREEN_VH": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_SCREEN_VH",
+            SETTING_INFO: SETTING_INFO
         }, "*");
     },
     //全屏的控制
-    "_window_newtranx_full_screen": function (fullscreen) {
+    "_WINDOW_NEWTRANX_FULL_SCREEN": function (fullScreen) {
         //有消息弹窗，不关闭
         if ($('#message.on').length > 0) {
-            fullscreen = 'on'
+            fullScreen = 'on'
         }
-        if(setting_info.screen_vh == 'on') {
-            if(setting_info.i18n_lang_option == 'zh') {
+        if(SETTING_INFO.screen_vh == 'on') {
+            if(SETTING_INFO.i18n_lang_option == 'zh') {
                 $('.plugin').css('width', '330px')
-            } else if(setting_info.i18n_lang_option == 'en') {
+            } else if(SETTING_INFO.i18n_lang_option == 'en') {
                 $('.plugin').css('width', '400px')
             }
         }
-        bind_common_command.port.postmessage({
-            action: "window_newtranx_full_screen",
-            fullscreen: fullscreen
+        Bind_Common_Command.port.postMessage({
+            action: "WINDOW_NEWTRANX_FULL_SCREEN",
+            fullScreen: fullScreen
         }, "*");
     },
     //获取快照
-    "_get_picture": function () {
-        bind_common_command.port.postmessage({
-            action: "get_picture"
+    "_GET_PICTURE": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "GET_PICTURE"
         }, "*");
     },
     //查看原文
-    "_newtranx_suffer_source": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_suffer_source"
+    "_NEWTRANX_SUFFER_SOURCE": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_SUFFER_SOURCE"
         }, "*")
     },
     //查看原文
-    "_newtranx_suffer_target": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_suffer_target"
+    "_NEWTRANX_SUFFER_TARGET": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_SUFFER_TARGET"
         }, "*")
     },
     //轮询获取个人信息
-    "_newtranx_polling_login": function () {
-        bind_common_command.port.postmessage({
-            action: "newtranx_polling_login"
+    "_NEWTRANX_POLLING_LOGIN": function () {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_POLLING_LOGIN"
         }, "*")
     },
     //用户登录
-    "_newtranx_user_login": function (username, password) {
-        bind_common_command.port.postmessage({
-            action: "newtranx_user_login",
+    "_NEWTRANX_USER_LOGIN": function (username, password) {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_USER_LOGIN",
             username: username,
             password: password
         }, "*")
     },
     //用户退出接口
-    "_newtranx_user_logout": function (username, password) {
-        bind_common_command.port.postmessage({
-            action: "newtranx_user_logout"
+    "_NEWTRANX_USER_LOGOUT": function (username, password) {
+        Bind_Common_Command.port.postMessage({
+            action: "NEWTRANX_USER_LOGOUT"
         }, "*")
     }
 }
 
 //事件绑定
-function bind_common_bindbutton() {
+function Bind_Common_BindButton() {
     //源语言切换
-    $("#select_srcl").find(".option_text").bind('domnodeinserted', function (e) {
+    $("#select_srcl").find(".option_text").bind('DOMNodeInserted', function (e) {
         var $this = $(this);
-        sourcelang = $this.attr('data-value');
-        console.info('sourcelang changed:' + sourcelang);
-        var tgtlarr = supportlang[sourcelang];
+        sourceLang = $this.attr('data-value');
+        console.info('sourceLang changed:' + sourceLang);
+        var tgtlArr = supportLang[sourceLang];
         $("#select_tgtl .select_center ul").empty()
-        for (var i = 0; i < tgtlarr.length; i++) {
-            $("#select_tgtl .select_center ul").append("<li class='options' data-value='" + tgtlarr[i] + "'>" + languages[setting_info.i18n_lang_option][tgtlarr[i]] + "</li>");
+        for (var i = 0; i < tgtlArr.length; i++) {
+            $("#select_tgtl .select_center ul").append("<li class='options' data-value='" + tgtlArr[i] + "'>" + languages[SETTING_INFO.i18n_lang_option][tgtlArr[i]] + "</li>");
         }
-        var $existli = $("#select_tgtl .select_center ul").find('li[data-value="' + targetlang + '"]')
-        if ($existli.length < 1) {
-            $existli = $("#select_tgtl .select_center ul").find('li:first')
+        var $existLi = $("#select_tgtl .select_center ul").find('li[data-value="' + targetLang + '"]')
+        if ($existLi.length < 1) {
+            $existLi = $("#select_tgtl .select_center ul").find('li:first')
         }
-        $existli.trigger('click');
+        $existLi.trigger('click');
     });
     //目标语言切换
-    $("#select_tgtl").find(".option_text").bind('domnodeinserted', function () {
+    $("#select_tgtl").find(".option_text").bind('DOMNodeInserted', function () {
         var $this = $(this);
-        targetlang = $this.attr('data-value');
-        console.info('targetlang changed: ' + targetlang);
+        targetLang = $this.attr('data-value');
+        console.info('targetLang changed: ' + targetLang);
 
-        var subjectjson = "";
-        if (supportsubject[setting_info.i18n_lang_option][sourcelang + '-' + targetlang]) {
-            subjectjson = supportsubject[setting_info.i18n_lang_option][sourcelang + '-' + targetlang]
+        var subjectJson = "";
+        if (supportSubject[SETTING_INFO.i18n_lang_option][sourceLang + '-' + targetLang]) {
+            subjectJson = supportSubject[SETTING_INFO.i18n_lang_option][sourceLang + '-' + targetLang]
         } else {
-            subjectjson = supportsubject[setting_info.i18n_lang_option]['default']
+            subjectJson = supportSubject[SETTING_INFO.i18n_lang_option]['default']
         }
         $("#select_subject .select_center ul").empty()
-        for (var a in subjectjson) {
-            $("#select_subject .select_center ul").append("<li class='options' data-value='" + a + "'>" + subjectjson[a] + "</li>");
+        for (var a in subjectJson) {
+            $("#select_subject .select_center ul").append("<li class='options' data-value='" + a + "'>" + subjectJson[a] + "</li>");
         }
         $("#select_subject .select_center ul").find('li:first').trigger('click');
 
     });
     //领域切换
-    $("#select_subject").find(".option_text").bind('domnodeinserted', function () {
+    $("#select_subject").find(".option_text").bind('DOMNodeInserted', function () {
         const $this = $(this);
         subject = $this.attr('data-value');
         console.info();("subject: " + subject);
-        bind_common_command._newtranx_reset_language()
+        Bind_Common_Command._NEWTRANX_RESET_LANGUAGE()
     });
     //登录个人中心的按钮
-    var loginbtn = '[data-toggle="loginform"]';
-    var loginbtnother = '[data-open="loginform"]'
-    $(loginbtn + ',' + loginbtnother).click(function (e) {
-        e.preventdefault()
-        e.stoppropagation()
+    var loginBtn = '[data-toggle="loginForm"]';
+    var loginBtnOther = '[data-open="loginForm"]'
+    $(loginBtn + ',' + loginBtnOther).click(function (e) {
+        e.preventDefault()
+        e.stopPropagation()
 
-        var $loginform = $('#loginform')
-        if (!$loginform) return
-        $loginform.toggleclass('disb')
-        if($loginform.hasclass('disb')) {
-            bind_common_command._window_newtranx_full_screen('on')
+        var $loginForm = $('#loginForm')
+        if (!$loginForm) return
+        $loginForm.toggleClass('disb')
+        if($loginForm.hasClass('disb')) {
+            Bind_Common_Command._WINDOW_NEWTRANX_FULL_SCREEN('on')
         } else {
-            bind_common_command._window_newtranx_full_screen()
+            Bind_Common_Command._WINDOW_NEWTRANX_FULL_SCREEN()
         }
     })
-    // $('#userportrait').click(function () {
+    // $('#userPortrait').click(function () {
     //     var $that = $(this);
-    //     bind_common_command._newtranx_msg('已经登录')
-    //     var urlname = $that.attr('data-value');
-    //     if(!urlname) return
-    //     bind_common_command._newtranx_form_open(urlname)
+    //     Bind_Common_Command._NEWTRANX_MSG('已经登录')
+    //     var urlName = $that.attr('data-value');
+    //     if(!urlName) return
+    //     Bind_Common_Command._NEWTRANX_FORM_OPEN(urlName)
     // })
     $('#logout').click(function () {
-        bind_common_function.logout();
+        Bind_Common_Function.logout();
     })
-    // $('#usermessages').click(function () {
-    //     bind_common_command._newtranx_msg('历史消息')
-    //     var urlname = $('#usermessages').attr('data-value');
-    //     if(!urlname) return
-    //     bind_common_command._newtranx_form_open(urlname)
+    // $('#userMessages').click(function () {
+    //     Bind_Common_Command._NEWTRANX_MSG('历史消息')
+    //     var urlName = $('#userMessages').attr('data-value');
+    //     if(!urlName) return
+    //     Bind_Common_Command._NEWTRANX_FORM_OPEN(urlName)
     // })
     $('#login_submit').click(function (e) {
         var username = $('[name="username"]').val()
         var password = $('[name="password"]').val()
         if(!username || !password) return
-        bind_common_command._newtranx_user_login(username, password)
+        Bind_Common_Command._NEWTRANX_USER_LOGIN(username, password)
     })
     $("body").keydown(function() {
-        if (event.keycode == "13") {//keycode=13是回车键；数字不同代表监听的按键不同
-            if($('#loginform').hasclass('disb')) {
+        if (event.keyCode == "13") {//keyCode=13是回车键；数字不同代表监听的按键不同
+            if($('#loginForm').hasClass('disb')) {
                 var username = $('[name="username"]').val()
                 var password = $('[name="password"]').val()
                 if(!username || !password) return
-                bind_common_command._newtranx_user_login(username, password)
+                Bind_Common_Command._NEWTRANX_USER_LOGIN(username, password)
             }
         }
     });
     //获取焦点，删除提示信息
     $('.username input, .password input').focus(function () {
-        $('.login_error p').hide()
+        $('.login_error P').hide()
     })
     //链接弹出（火狐子页面不允许弹出）
     $(".href").click(function (e) {
-        var urlname = $(this).attr("value");
-        if (!urlname) return
-        bind_common_command._newtranx_window_open(urlname)
+        var urlName = $(this).attr("value");
+        if (!urlName) return
+        Bind_Common_Command._NEWTRANX_WINDOW_OPEN(urlName)
     })
     //表单链接跳转，需要登陆的地址
-    $(".hrefform").click(function (e) {
-        var urlname = $(e.target).attr('data-value');
-        if(!urlname) return
-        bind_common_command._newtranx_form_open(urlname)
+    $(".hrefForm").click(function (e) {
+        var urlName = $(e.target).attr('data-value');
+        if(!urlName) return
+        Bind_Common_Command._NEWTRANX_FORM_OPEN(urlName)
     })
     //关闭按钮的事件 有两个
-    $(".closeplugin").click(function () {
-        bind_common_command._newtranx_remove_plugin()
+    $(".closePlugin").click(function () {
+        Bind_Common_Command._NEWTRANX_REMOVE_PLUGIN()
     })
     //翻译按钮的事件
     $("#trans_btn").click(function () {
-        if (!bind_common_function.withouttranslatecheck()) return;
-        bind_common_function.btnswitch(4);
-        bind_common_command._newtranx_translate();
+        if (!Bind_Common_Function.withoutTranslateCheck()) return;
+        Bind_Common_Function.btnSwitch(4);
+        Bind_Common_Command._NEWTRANX_TRANSLATE();
     })
     //应用设置的按钮
     $('#lication_btn').click(function () {
-        if (!$('#lication_btn').hasclass('issubmit')) return
-        bind_common_function.getformvalue();
-        bind_common_function.updatetext()
-        bind_common_command._newtranx_modify_settingsinfo();
-        $('#lication_btn').removeclass('issubmit')
+        if (!$('#lication_btn').hasClass('isSubmit')) return
+        Bind_Common_Function.getFormValue();
+        Bind_Common_Function.updateText()
+        Bind_Common_Command._NEWTRANX_MODIFY_SETTINGSINFO();
+        $('#lication_btn').removeClass('isSubmit')
     })
     //取消设置的按钮
     // $('#cancel_btn').click(function () {
-    //     bind_common_function.initsettings();
-    //     $('#lication_btn').removeclass('issubmit')
+    //     Bind_Common_Function.initSettings();
+    //     $('#lication_btn').removeClass('isSubmit')
     // })
     //横竖切换的按钮
     $('#screen_vh').click(function () {
-        if (setting_info['screen_vh'] == 'on') {
-            setting_info['screen_vh'] = 'off'
-        } else if (setting_info['screen_vh'] == 'off') {
-            setting_info['screen_vh'] = 'on'
+        if (SETTING_INFO['screen_vh'] == 'on') {
+            SETTING_INFO['screen_vh'] = 'off'
+        } else if (SETTING_INFO['screen_vh'] == 'off') {
+            SETTING_INFO['screen_vh'] = 'on'
         }
-        bind_common_command._newtranx_screen_vh();
+        Bind_Common_Command._NEWTRANX_SCREEN_VH();
     })
     //放大镜
     $("#toggle_glass").click(function (e) {
-        bind_common_command._get_picture();
+        Bind_Common_Command._GET_PICTURE();
     })
     //短文翻译的按钮
     $('#text_trans_btn').click(function () {
         var text = $('#source_text').text();
         if (!text) return
-        $('#text_trans_btn').addclass('translating');
-        bind_common_command._newtranx_translate_text(text);
+        $('#text_trans_btn').addClass('translating');
+        Bind_Common_Command._NEWTRANX_TRANSLATE_TEXT(text);
     })
     //原文文本框
     $('#source_text').keydown(function () {
@@ -622,16 +619,16 @@ function bind_common_bindbutton() {
         }
     })
     //弹窗
-    $('#message .closemessage').click(function () {
-        bind_common_function.hidetipsmessage();
-        bind_common_command._window_newtranx_full_screen()
+    $('#message .closeMessage').click(function () {
+        Bind_Common_Function.hideTipsMessage();
+        Bind_Common_Command._WINDOW_NEWTRANX_FULL_SCREEN()
     })
     //查看原文的按钮
     $("#see_srcl").click(function () {
-        bind_common_command._newtranx_suffer_source()
+        Bind_Common_Command._NEWTRANX_SUFFER_SOURCE()
     });
     //查看译文的按钮
     $("#see_trgl").click(function () {
-        bind_common_command._newtranx_suffer_target()
+        Bind_Common_Command._NEWTRANX_SUFFER_TARGET()
     });
 }
